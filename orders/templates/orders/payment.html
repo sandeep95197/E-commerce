@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Ecommerce Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        
+        /* Colorful Header */
+        header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 25%, #48dbfb 50%, #ff9ff3 75%, #54a0ff 100%);
+            padding: 25px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        header h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+        
+        /* Payment Form */
+        .payment-form { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+        }
+        
+        .payment-form h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        /* Order Info */
+        .order-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .order-info h3 {
+            color: #11998e;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .order-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .order-detail {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .order-detail span:first-child {
+            color: #666;
+        }
+        
+        .order-detail span:last-child {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .order-total {
+            grid-column: 1 / -1;
+            padding-top: 15px;
+            border-top: 2px solid #dee2e6;
+            font-size: 1.3rem;
+            color: #11998e !important;
+            font-weight: 700 !important;
+        }
+        
+        /* Form Styles */
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h3 {
+            color: #11998e;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #38ef7d;
+            box-shadow: 0 0 0 4px rgba(56, 239, 125, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 30px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #666;
+            border: 1px solid #dee2e6;
+        }
+        
+        /* Buttons */
+        .btn { 
+            display: inline-block; 
+            padding: 14px 28px; 
+            border-radius: 25px; 
+            text-decoration: none; 
+            border: none; 
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.4);
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(56, 239, 125, 0.5);
+        }
+        
+        .btn-back {
+            background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+            color: white;
+            margin-top: 10px;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Security Note */
+        .security-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        /* Footer */
+        footer { 
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            color: white; 
+            text-align: center; 
+            padding: 30px 0; 
+            margin-top: 40px; 
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .order-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>💳 Payment</h1>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <form method="POST" action="{% url 'process_payment' order.id %}">
+                {% csrf_token %}
+                <div class="payment-form">
+                    <h2>💰 Complete Your Payment</h2>
+                    
+                    <!-- Order Information -->
+                    <div class="order-info">
+                        <h3>📋 Order Details</h3>
+                        <div class="order-details">
+                            <div class="order-detail">
+                                <span>Order Number:</span>
+                                <span>{{ order.order_number }}</span>
+                            </div>
+                            <div class="order-detail">
+                                <span>Shipping to:</span>
+                                <span>{{ order.city }}, {{ order.country }}</span>
+                            </div>
+                            <div class="order-detail">
+                                <span>Items:</span>
+                                <span>{{ order.items.count }}</span>
+                            </div>
+                            <div class="order-detail">
+                                <span>Shipping:</span>
+                                <span>{% if order.shipping_cost > 0 %}${{ order.shipping_cost }}{% else %}FREE{% endif %}</span>
+                            </div>
+                            <div class="order-detail">
+                                <span>Tax:</span>
+                                <span>${{ order.tax_amount }}</span>
+                            </div>
+                            <div class="order-detail order-total">
+                                <span>Total:</span>
+                                <span>${{ order.total_amount }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Details -->
+                    <div class="form-section">
+                        <h3>💳 Payment Information</h3>
+                        <div class="card-icons">
+                            <div class="card-icon">Visa</div>
+                            <div class="card-icon">MC</div>
+                            <div class="card-icon">Amex</div>
+                            <div class="card-icon">PayPal</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card_number">Card Number *</label>
+                            <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required maxlength="19">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card_name">Name on Card *</label>
+                            <input type="text" id="card_name" name="card_name" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry">Expiry Date *</label>
+                                <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="123" required maxlength="4">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card_type">Card Type *</label>
+                            <select id="card_type" name="card_type" required>
+                                <option value="">Select Card Type</option>
+                                <option value="credit">Credit Card</option>
+                                <option value="debit">Debit Card</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-submit">✅ Pay ${{ order.total_amount|floatformat:2 }}</button>
+                    <a href="{% url 'cart' %}" class="btn btn-back">← Back to Cart</a>
+                    
+                    <div class="security-note">
+                        🔒 Your payment information is secure and encrypted
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© 2026 Ecommerce Store. All rights reserved. Made with ❤️</p>
+    </footer>
+</body>
+</html>
+
